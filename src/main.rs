@@ -1,7 +1,15 @@
 fn main() {
     let input = get_input();
     println!("arg {}" , input[0]);
-    usage();
+
+    match input.len() {
+        2 => do_something(),
+        _ => usage()
+    }
+}
+
+fn do_something(){
+
 }
 
 fn get_input() -> Vec<String> {
