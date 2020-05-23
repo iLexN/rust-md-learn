@@ -1,9 +1,8 @@
 fn main() {
     let input = get_input();
-    println!("arg {}" , input[0]);
 
     match input.len() {
-        2 => do_something(),
+        2 => parse_markdown_file(&input[1]),
         //The default match case (_) will trigger if no other match case triggers
         _ => {
             println!("[ ERROR ] Invalid invocation (you done goofed!)");
@@ -12,9 +11,12 @@ fn main() {
     }
 }
 
-fn do_something(){
-
+fn parse_markdown_file(_filename: &str) {
+    print_short_banner();
+    println!("[ INFO ] Trying to parse {}...", _filename);
 }
+
+
 
 fn get_input() -> Vec<String> {
     let args: Vec<String> = std::env::args().collect();
@@ -23,7 +25,6 @@ fn get_input() -> Vec<String> {
 }
 
 fn usage() {
-    print_short_banner();
     print_long_banner();
 }
 
