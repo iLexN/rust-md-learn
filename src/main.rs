@@ -4,7 +4,11 @@ fn main() {
 
     match input.len() {
         2 => do_something(),
-        _ => usage()
+        //The default match case (_) will trigger if no other match case triggers
+        _ => {
+            println!("[ ERROR ] Invalid invocation (you done goofed!)");
+            usage();
+        }
     }
 }
 
