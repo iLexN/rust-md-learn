@@ -5,7 +5,7 @@ fn main() {
 fn usage() {
     println!("Learning rust.");
 
-    let the_version:&str = "0.1";
+    let the_version = env!("CARGO_PKG_VERSION");
     println!("Version: {}", the_version);
 }
 

@@ -3,6 +3,8 @@ name = "rust-md-learn"
 version = "0.1.0"
 authors = ["iLexN <ilex.job@gmail.com>"]
 edition = "2018"
+description = "Try to learning Rust"
+homepage = "https://github.com/iLexN"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
