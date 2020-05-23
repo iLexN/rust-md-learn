@@ -7,5 +7,5 @@ fn usage(){
 }
 
 fn get_version() -> u8{
-
+    1
 }
