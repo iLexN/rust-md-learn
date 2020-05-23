@@ -1,5 +1,13 @@
 fn main() {
+    let input = get_input();
+    println!("arg {}" , input[0]);
     usage();
+}
+
+fn get_input() -> Vec<String> {
+    let args: Vec<String> = std::env::args().collect();
+
+    args
 }
 
 fn usage() {
