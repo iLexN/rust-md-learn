@@ -4,6 +4,7 @@ fn main() {
 
 fn usage() {
     println!("Learning rust.");
+    println!("Version: {}" , get_version());
 }
 
 fn get_version() -> u8 {
