@@ -3,10 +3,11 @@ fn main() {
 }
 
 fn usage() {
-    println!("Learning rust.");
-    println!("{}" , get_title());
-    let the_version = env!("CARGO_PKG_VERSION");
-    println!("Version: {}", the_version);
+    print_short_banner()
+}
+
+fn print_short_banner() {
+    println!("{}", get_title());
 }
 
 fn get_title() -> String {
