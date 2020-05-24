@@ -1,6 +1,6 @@
 use std::path::Path;
 use std::fs::File;
-use std::io::{BufRead, BufReader};
+use std::io::{BufRead, BufReader, Write};
 
 fn main() {
     let input = get_input();
@@ -84,9 +84,23 @@ fn parse_markdown_file(_filename: &str) {
         println!("{}", t);
     }
 
-    let mut output_filename = String::from(&_filename[.._filename.len()-3]);
+    let mut output_filename = String::from(&_filename[.._filename.len() - 3]);
     output_filename.push_str(".html");
     println!("file name: {}", output_filename);
+
+    let mut outfile = File::create(output_filename)
+        .expect("[ ERROR ] Could not create output file!");
+
+    //Remember that we borrow a reference to the tokens vector (like this: &tokens)
+    //because of Rust’s ownership rules.
+    // If we didn’t include that &,
+    // the value of each element in tokens would be moved into the for-loop
+    // and removed from outside of it–and we don’t want that!
+    for line in &tokens {
+        outfile.write_all(line.as_bytes())
+            .expect("[ ERROR ] Could not write to output file!");
+    }
+    println!("[ INFO ] Parsing complete!");
 }
 
 fn get_input() -> Vec<String> {
