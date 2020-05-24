@@ -1,5 +1,6 @@
 use std::path::Path;
 use std::fs::File;
+use std::io::{BufRead, BufReader};
 
 fn main() {
     let input = get_input();
@@ -19,7 +20,7 @@ fn parse_markdown_file(_filename: &str) {
     println!("[ INFO ] Trying to parse {}...", _filename);
 
     let input_filename = Path::new(_filename);
-    let _file = File::open(input_filename)
+    let file = File::open(input_filename)
         //wrap the return value and pass along the Ok()–except upon failure,
         // in which case we output the string argument
         // to except as a kind of error message.
@@ -30,6 +31,14 @@ fn parse_markdown_file(_filename: &str) {
     //   Err(err) => panic!("Couldn't open file: {}", err.description()),
     //   Ok(value) => value,
     // };
+
+    let mut _ptag: bool = false; // keep track of paragraph tags
+    let mut _htag: bool = false; // keep track of h1 tags
+
+    let mut _token: Vec<String> = Vec::new();
+
+    // Read the file line-by-line
+    let _reader = BufReader::new(file);
 }
 
 fn get_input() -> Vec<String> {
