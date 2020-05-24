@@ -83,6 +83,10 @@ fn parse_markdown_file(_filename: &str) {
     for t in &tokens {
         println!("{}", t);
     }
+
+    let mut output_filename = String::from(&_filename[.._filename.len()-3]);
+    output_filename.push_str(".html");
+    println!("file name: {}", output_filename);
 }
 
 fn get_input() -> Vec<String> {
