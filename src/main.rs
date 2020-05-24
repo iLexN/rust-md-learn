@@ -34,6 +34,8 @@ fn parse_markdown_file(_filename: &str) {
 
     let mut tokens: Vec<String> = Vec::new();
 
+    // not same as https://doc.rust-lang.org/rust-by-example/std_misc/file/read_lines.html
+    // why???
     // Read the file line-by-line
     let reader = BufReader::new(file);
 
