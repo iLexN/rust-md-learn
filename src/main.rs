@@ -48,7 +48,18 @@ fn parse_markdown_file(_filename: &str) {
         // };
 
         //also can manually unwrapping the Result object
-        let _line_content = line.unwrap();
+        let line_content = line.unwrap();
+        let mut _first_char: Vec<Char> = line_content
+            //Get the line_contents variable and convert it to a sequence of characters.
+            .chars().
+            //Now take the first element of that iterable object.
+            //Rust will convert this Iterator into a Take<char> object, a special kind of iterator
+            take(1)
+            //Now convert everything I have retrieved up to this point into a Collection–something
+            // that I can subsequently use–of the type matching
+            // the left-hand variable (which is Vec<char>)
+            .collect();
+
     }
 }
 
