@@ -38,7 +38,18 @@ fn parse_markdown_file(_filename: &str) {
     let mut _token: Vec<String> = Vec::new();
 
     // Read the file line-by-line
-    let _reader = BufReader::new(file);
+    let reader = BufReader::new(file);
+
+    for line in reader.lines() {
+        // line is Result , so need check OK() , Err()
+        // let line_content = match line {
+        //     Ok(content) => content,
+        //     Err(e) => panic!("Error: {}", e.to_string()),
+        // };
+
+        //also can manually unwrapping the Result object
+        let _line_content = line.unwrap();
+    }
 }
 
 fn get_input() -> Vec<String> {
