@@ -1,4 +1,5 @@
 use std::path::Path;
+use std::fs::File;
 
 fn main() {
     let input = get_input();
@@ -17,8 +18,18 @@ fn parse_markdown_file(_filename: &str) {
     print_short_banner();
     println!("[ INFO ] Trying to parse {}...", _filename);
 
-    let _input_filename = Path::new(_filename);
+    let input_filename = Path::new(_filename);
+    let _file = File::open(input_filename)
+        //wrap the return value and pass along the Ok()–except upon failure,
+        // in which case we output the string argument
+        // to except as a kind of error message.
+        .expect("[ ERROR ] Failed to open file!");
 
+    // other way
+    //let file = match File::open(&input_filename) {
+    //   Err(err) => panic!("Couldn't open file: {}", err.description()),
+    //   Ok(value) => value,
+    // };
 }
 
 fn get_input() -> Vec<String> {
