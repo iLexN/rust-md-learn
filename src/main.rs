@@ -49,7 +49,7 @@ fn parse_markdown_file(_filename: &str) {
 
         //also can manually unwrapping the Result object
         let line_content = line.unwrap();
-        let mut _first_char: Vec<Char> = line_content
+        let mut _first_char: Vec<char> = line_content
             //Get the line_contents variable and convert it to a sequence of characters.
             .chars().
             //Now take the first element of that iterable object.
