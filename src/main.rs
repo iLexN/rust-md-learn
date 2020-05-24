@@ -16,8 +16,6 @@ fn parse_markdown_file(_filename: &str) {
     println!("[ INFO ] Trying to parse {}...", _filename);
 }
 
-
-
 fn get_input() -> Vec<String> {
     let args: Vec<String> = std::env::args().collect();
 
