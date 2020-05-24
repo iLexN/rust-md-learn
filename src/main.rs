@@ -32,9 +32,6 @@ fn parse_markdown_file(_filename: &str) {
     //   Ok(value) => value,
     // };
 
-    let mut _ptag: bool = false; // keep track of paragraph tags
-    let mut _htag: bool = false; // keep track of h1 tags
-
     let mut tokens: Vec<String> = Vec::new();
 
     // Read the file line-by-line
@@ -63,16 +60,8 @@ fn parse_markdown_file(_filename: &str) {
         let mut output_line = String::new();
 
         match first_char.pop() {
-            Some('#') => {
-                output_line.push_str("<h1>");
-                output_line.push_str(&line_contents[2..]); // Get all but the first two characters
-                output_line.push_str("</h1>\n");
-            }
-            _ => {
-                output_line.push_str("<p>");
-                output_line.push_str(&line_contents);
-                output_line.push_str("</p>\n");
-            }
+            Some('#') => put_header(&line_contents, &mut output_line),
+            _ => put_paragraph(&line_contents, &mut output_line)
         };
 
         if output_line != "<p></p>\n".to_string() {
@@ -80,14 +69,21 @@ fn parse_markdown_file(_filename: &str) {
         }
     }
 
-    for t in &tokens {
-        println!("{}", t);
-    }
-
-    let mut output_filename = String::from(&_filename[.._filename.len() - 3]);
-    output_filename.push_str(".html");
+    let output_filename = get_output_filename(&_filename);
     println!("file name: {}", output_filename);
 
+    write_to_html(&mut tokens, output_filename);
+
+    println!("[ INFO ] Parsing complete!");
+}
+
+fn get_output_filename(_filename: &str) -> String {
+    let mut output_filename = String::from(&_filename[.._filename.len() - 3]);
+    output_filename.push_str(".html");
+    output_filename
+}
+
+fn write_to_html(tokens: &mut Vec<String>, output_filename: String) {
     let mut outfile = File::create(output_filename)
         .expect("[ ERROR ] Could not create output file!");
 
@@ -96,11 +92,22 @@ fn parse_markdown_file(_filename: &str) {
     // If we didn’t include that &,
     // the value of each element in tokens would be moved into the for-loop
     // and removed from outside of it–and we don’t want that!
-    for line in &tokens {
+    for line in tokens {
         outfile.write_all(line.as_bytes())
             .expect("[ ERROR ] Could not write to output file!");
     }
-    println!("[ INFO ] Parsing complete!");
+}
+
+fn put_paragraph(line_contents: &String, output_line: &mut String) {
+    output_line.push_str("<p>");
+    output_line.push_str(&line_contents);
+    output_line.push_str("</p>\n");
+}
+
+fn put_header(line_contents: &String, output_line: &mut String) {
+    output_line.push_str("<h1>");
+    output_line.push_str(&line_contents[2..]); // Get all but the first two characters
+    output_line.push_str("</h1>\n");
 }
 
 fn get_input() -> Vec<String> {
