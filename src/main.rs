@@ -35,7 +35,7 @@ fn parse_markdown_file(_filename: &str) {
     let mut _ptag: bool = false; // keep track of paragraph tags
     let mut _htag: bool = false; // keep track of h1 tags
 
-    let mut _token: Vec<String> = Vec::new();
+    let mut tokens: Vec<String> = Vec::new();
 
     // Read the file line-by-line
     let reader = BufReader::new(file);
@@ -48,8 +48,8 @@ fn parse_markdown_file(_filename: &str) {
         // };
 
         //also can manually unwrapping the Result object
-        let line_content = line.unwrap();
-        let mut _first_char: Vec<char> = line_content
+        let line_contents = line.unwrap();
+        let mut first_char: Vec<char> = line_contents
             //Get the line_contents variable and convert it to a sequence of characters.
             .chars().
             //Now take the first element of that iterable object.
@@ -60,6 +60,28 @@ fn parse_markdown_file(_filename: &str) {
             // the left-hand variable (which is Vec<char>)
             .collect();
 
+        let mut output_line = String::new();
+
+        match first_char.pop() {
+            Some('#') => {
+                output_line.push_str("<h1>");
+                output_line.push_str(&line_contents[2..]); // Get all but the first two characters
+                output_line.push_str("</h1>\n");
+            }
+            _ => {
+                output_line.push_str("<p>");
+                output_line.push_str(&line_contents);
+                output_line.push_str("</p>\n");
+            }
+        };
+
+        if output_line != "<p></p>\n".to_string() {
+            tokens.push(output_line);
+        }
+    }
+
+    for t in &tokens {
+        println!("{}", t);
     }
 }
 
