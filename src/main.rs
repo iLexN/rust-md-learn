@@ -1,3 +1,5 @@
+use std::path::Path;
+
 fn main() {
     let input = get_input();
 
@@ -14,6 +16,9 @@ fn main() {
 fn parse_markdown_file(_filename: &str) {
     print_short_banner();
     println!("[ INFO ] Trying to parse {}...", _filename);
+
+    let _input_filename = Path::new(_filename);
+
 }
 
 fn get_input() -> Vec<String> {
